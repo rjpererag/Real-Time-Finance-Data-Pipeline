@@ -62,7 +62,7 @@ class FinancialDataGenerator(AbstractDataGenerator):
     ) -> dict:
         try:
             if not choose_random:
-                self._get_from_option(ticker=ticker)
+                return self._get_from_option(ticker=ticker)
             return self._get_random_data()
         except Exception as e:
             return {"error": str(e)}
