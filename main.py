@@ -1,3 +1,11 @@
-def my_poorly_formatted_function(data: str) -> None:
-    my_var = "Testing"
-    print(f"{my_var}: {data}")
+from data_generator import DataGenerator
+
+
+def main() -> None:
+    generator = DataGenerator()
+    my_data = generator.financial.generate()
+    print(my_data)
+
+
+if __name__ == "__main__":
+    main()
