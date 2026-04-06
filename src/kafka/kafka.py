@@ -10,5 +10,11 @@ class KafkaBuffer:
         consumer_settings: KafkaConsumerSettings = KafkaConsumerSettings(),
         producer_settings: KafkaProducerSettings = KafkaProducerSettings(),
     ):
-        self.consumer = KafkaConsumer(settings=consumer_settings)
-        self.producer = KafkaProducer(settings=producer_settings)
+        self.consumer_settings = consumer_settings
+        self.producer_settings = producer_settings
+
+    def get_producer(self) -> KafkaProducer | None:
+        return KafkaProducer(settings=self.producer_settings)
+
+    def get_consumer(self) -> KafkaConsumer | None:
+        return KafkaConsumer(settings=self.consumer_settings)
