@@ -20,6 +20,21 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       CLUSTER_ID: '4L69no3pZKWm9h1X-6R-Hw'
 
+  console:
+      image: docker.redpanda.com/redpandadata/console:latest
+      container_name: kafka-console
+      entrypoint: /bin/sh
+      command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
+      environment:
+        CONFIG_FILEPATH: /tmp/config.yml
+        CONSOLE_CONFIG_FILE: |
+          kafka:
+            brokers: ["kafka:29092"]
+      ports:
+        - "8080:8080"
+      depends_on:
+        - kafka
+
   jobmanager:
     image: flink:1.18.0-scala_2.12
     container_name: flink-jobmanager
