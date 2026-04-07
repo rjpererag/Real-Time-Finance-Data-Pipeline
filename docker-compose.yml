@@ -36,10 +36,14 @@ services:
         - kafka
 
   jobmanager:
-    image: flink:1.18.0-scala_2.12
+    build:
+      context: .
+      dockerfile: Dockerfile-flink
     container_name: flink-jobmanager
-    ports:
-      - "8081:8081"
+    volumes:
+
+      - ./:/opt/flink/usrlib:ro
+      - ./flink-libs:/opt/flink/lib/custom-lib
     command: jobmanager
     environment:
       - |
@@ -47,16 +51,21 @@ services:
         jobmanager.rpc.address: jobmanager
 
   taskmanager:
-    image: flink:1.18.0-scala_2.12
+    build:
+      context: .
+      dockerfile: Dockerfile-flink
     container_name: flink-taskmanager
     depends_on:
       - jobmanager
     command: taskmanager
+    volumes:
+      - ./:/opt/flink/usrlib:ro
+      - ./flink-libs:/opt/flink/lib/custom-lib
     environment:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
-        taskmanager.numberOfTaskSlots: 2
+        taskmanager.numberOfTaskSlots: 3
 
   db:
     image: postgres:15

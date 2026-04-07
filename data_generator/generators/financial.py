@@ -84,5 +84,5 @@ class FinancialDataGenerator(AbstractDataGenerator):
         return {
             "ticker": base_data.get("ticker"),
             "price": self._get_random_price(base_price=base_data.get("base_price", 0)),
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
         }
