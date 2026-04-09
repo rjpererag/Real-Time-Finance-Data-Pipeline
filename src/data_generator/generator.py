@@ -1,4 +1,4 @@
-from data_generator.generators import FinancialDataGenerator
+from .generators import FinancialDataGenerator
 
 
 class DataGenerator:

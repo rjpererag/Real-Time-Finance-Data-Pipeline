@@ -36,7 +36,7 @@ services:
   jobmanager:
     build:
       context: .
-      dockerfile: Dockerfile-flink
+      dockerfile: src/flink/Dockerfile-flink
     container_name: flink-jobmanager
     volumes:
       - ./:/opt/flink/usrlib:ro
@@ -54,7 +54,7 @@ services:
   taskmanager:
     build:
       context: .
-      dockerfile: Dockerfile-flink
+      dockerfile: src/flink/Dockerfile-flink
     container_name: flink-taskmanager
     depends_on:
       - jobmanager
@@ -87,6 +87,16 @@ services:
       - POSTGRES_PORT=5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  producer:
+    build:
+      context: .
+      dockerfile: Dockerfile-producer
+    restart: unless-stopped
+    depends_on:
+      - kafka
+    env_file:
+      - .env
 
 networks:
   default:
