@@ -1,4 +1,4 @@
-from data_generator.generators.abstract import AbstractDataGenerator
+from .abstract import AbstractDataGenerator
 
 import random
 from datetime import datetime
