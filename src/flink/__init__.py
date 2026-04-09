@@ -1,2 +1,2 @@
-from .service import FlinkService
-from .settings import FlinkSettings
+from .service import FlinkService, FlinkSettings
+from .jobs import JobSettings, FlinkJobs

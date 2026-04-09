@@ -1,14 +1,5 @@
-from dataclasses import field, dataclass
+from dataclasses import dataclass, field
 from typing import Optional
-
-DEFAULT_CONN = {
-    "connector": "kafka",
-    "topic": "my_new_topic",
-    "properties.bootstrap.servers": "kafka:29092",
-    "properties.group.id": "flink-finance-group",
-    "scan.startup.mode": "earliest-offset",
-    "format": "json",
-}
 
 
 def get_default_sql_schema(
@@ -51,6 +42,7 @@ class JobSettings:
     event_mode: str = "proc_time"
     schema: Optional[str] = field(default=None, init=True)
     sqls: Optional[dict] = field(default=None, init=True)
+    sink: bool = False
 
     def __post_init__(self):
         if self.schema is None:
@@ -58,8 +50,3 @@ class JobSettings:
 
         if self.sqls is None:
             self.sqls = get_default_sqls(table_name=self.table_name, event_mode=self.event_mode)
-
-
-@dataclass
-class FlinkSettings:
-    connection: dict = field(default_factory=lambda: DEFAULT_CONN)

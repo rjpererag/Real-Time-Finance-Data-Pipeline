@@ -37,6 +37,11 @@ class FlinkJob(AbstractFlinkJob):
         full_sql = f"{schema} WITH ({parsed_conn})"
         self.t_env.execute_sql(full_sql)
 
+    def _create_sink_table(self, schema: str, conn_details: dict):
+        parsed_conn = parse_connection_details_to_str(conn_details)
+        full_sql = f"{schema} WITH ({parsed_conn})"
+        self.t_env.execute_sql(full_sql)
+
     @staticmethod
     def _print_table(table: Table) -> None:
         table.execute().print()
