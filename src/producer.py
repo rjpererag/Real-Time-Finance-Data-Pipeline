@@ -1,5 +1,5 @@
 from src.kafka import KafkaBuffer
-from data_generator import DataGenerator
+from src.data_generator import DataGenerator
 from time import sleep
 
 from src.core import producer_settings
