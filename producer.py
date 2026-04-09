@@ -2,9 +2,13 @@ from src.kafka import KafkaBuffer
 from data_generator import DataGenerator
 from time import sleep
 
+from src.core import producer_settings
+
 
 GENERATOR = DataGenerator()
-PRODUCER = KafkaBuffer().get_producer()
+PRODUCER = KafkaBuffer(
+    producer_settings=producer_settings,
+).get_producer()
 
 
 def main() -> None:
