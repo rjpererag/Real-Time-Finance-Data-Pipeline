@@ -1,5 +1,5 @@
 from src.flink import FlinkService, FlinkJobs
-from src.core import flink_settings, job_settings
+from src.core.consumer_settings import flink_settings, job_settings
 
 
 def main() -> None:
