@@ -6,10 +6,46 @@ DB_PASSWORD=mypassword
 
 SCHEMA=src/database/schema/schema.sql
 
+# DOCKER ORCHESTRATION
+
+.PHONY: wait_for_flink
+wait_for_flink:
+	@./scripts/wait_for_flink.sh
 
 .PHONY: start_consumer
 start_consumer:
-	docker exec -it flink-jobmanager ./bin/flink run --detached -py /opt/flink/usrlib/consumer.py
+	@echo "Submitting consumer to flink"
+	docker exec -it -e PYTHONPATH=/opt/flink/usrlib flink-jobmanager ./bin/flink run \
+			--detached \
+			-py /opt/flink/usrlib/src/consumer.py
+
+.PHONY: up
+up:
+	@echo "Starting pipeline"
+	@docker compose up -d
+	@make wait_for_flink
+	@make start_consumer
+
+.PHONY: down
+down:
+	@echo "Stopping containers"
+	@docker compose down
+
+.PHONY: down-full
+down-full:
+	@echo "Stopping containers and removing volumes"
+	@docker compose down -v
+
+.PHONY: reset
+reset:
+	@echo "Shutting down ...."
+	@make down-full
+	@sleep 10
+	@echo "Rebooting ..."
+	@make up
+
+
+# DB MANAGEMENT
 
 .PHONY: db-init
 db-init:
