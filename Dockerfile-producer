@@ -1,0 +1,19 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN echo "building producer image"
+
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/__init__.py src/__init__.py
+COPY src/kafka src/kafka
+COPY src/data_generator src/data_generator
+COPY src/core src/core
+COPY src/producer.py src/producer.py
+
+
+CMD ["python", "-m", "src.producer"]
