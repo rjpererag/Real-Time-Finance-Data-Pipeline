@@ -3,7 +3,7 @@ from ..kafka.producer.settings import KafkaProducerSettings
 
 
 __CONFIG = {
-    "bootstrap.servers": "localhost:9092",
+    "bootstrap.servers": "kafka:9092",
     "client.id": "finance-mocker-v1",
     "acks": "all",
     "compression.type": "snappy",
