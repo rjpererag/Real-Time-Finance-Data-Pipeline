@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/__init__.py src/__init__.py
 COPY src/kafka src/kafka
-COPY src/data_generator src/data_generator
+COPY src/websockets src/websockets
 COPY src/core src/core
 COPY src/producer.py src/producer.py
 

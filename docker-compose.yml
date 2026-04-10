@@ -95,6 +95,7 @@ services:
     restart: unless-stopped
     depends_on:
       - kafka
+      - console
     env_file:
       - .env
 
